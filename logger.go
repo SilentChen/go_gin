@@ -11,7 +11,7 @@ import (
 	"os"
 	"time"
 
-	"gin/plugins/go-isatty"
+	//"gin/plugins/go-isatty"
 )
 
 var (
@@ -197,9 +197,13 @@ func LoggerWithConfig(conf LoggerConfig) HandlerFunc {
 
 	isTerm := true
 
-	if w, ok := out.(*os.File); (!ok ||
-		(os.Getenv("TERM") == "dumb" || (!isatty.IsTerminal(w.Fd()) && !isatty.IsCygwinTerminal(w.Fd()))) ||
-		disableColor) && !forceColor {
+	// if w, ok := out.(*os.File); (!ok ||
+	// 	(os.Getenv("TERM") == "dumb" || (!isatty.IsTerminal(w.Fd()) && !isatty.IsCygwinTerminal(w.Fd()))) ||
+	// 	disableColor) && !forceColor {
+	// 	isTerm = false
+	// }
+
+	if _, ok := out.(*os.File); (!ok || (os.Getenv("TERM") == "dumb") || disableColor) && !forceColor {
 		isTerm = false
 	}
 
