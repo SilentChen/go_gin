@@ -128,6 +128,12 @@ func (group *RouterGroup) HEAD(relativePath string, handlers ...HandlerFunc) IRo
 	return group.handle("HEAD", relativePath, handlers)
 }
 
+func (group *RouterGroup) GNP(relativePath string, handlers ...HandlerFunc) IRoutes {
+	group.handle("GET", relativePath, handlers)
+	group.handle("POST", relativePath, handlers)
+	return group.returnObj()
+}
+
 // Any registers a route that matches all the HTTP methods.
 // GET, POST, PUT, PATCH, HEAD, OPTIONS, DELETE, CONNECT, TRACE.
 func (group *RouterGroup) Any(relativePath string, handlers ...HandlerFunc) IRoutes {
